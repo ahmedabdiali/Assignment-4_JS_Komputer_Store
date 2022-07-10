@@ -24,7 +24,7 @@ let totalDue = 0.0;
     const addDrinkToMenu = (drink) => {
         const drinkElement = document.createElement("option");
         drinkElement.value = drink.id;
-        drinkElement.appendChild(document.createTextNode(drink.description));
+        drinkElement.appendChild(document.createTextNode(drink.title));
         drinksElement.appendChild(drinkElement);
     }
 
@@ -33,4 +33,19 @@ let totalDue = 0.0;
         priceElement.innerText = selectDrink.price;
     }
 
+    const handleAddDrink = () => {
+        const selectedDrink = drinks[drinksElement.selectedIndex];
+        const quantity = quantityElement;
+        
+        const cartItem = document.createElement("li");
+        const lineTotal = quantity * selectedDrink.price;
+        
+        cartItem.innerText = `Title ${selectedDrink.title} price:- ${selectedDrink.price} quantity ${quantity} Total price:-${lineTotal.toFixed(2)}` 
+        cartElement.appendChild(cartItem);
+
+        totalDue += lineTotal;
+        totalDueElement.innerHTML = `Total Due: ${totalDue.toFixed(2)}`
+    }
+
     drinksElement.addEventListener("change", handleDrinkMenuChange);
+    addElement.addEventListener("click", handleAddDrink);
