@@ -1,8 +1,5 @@
 const drinksElement = document.getElementById("drinks");
-const priceElement = document.getElementById("price");
-const addElement = document.getElementById("add");
 const cartElement = document.getElementById("cart");
-const quantityElement = document.getElementById("quantity");
 const payButtonElement = document.getElementById("pay");
 const totalDueElement = document.getElementById("totalDue");
 const imageElement = document.getElementById("img");
@@ -19,7 +16,7 @@ let totalDue = 0.0;
 
     const addDrinksToMenu = (drinks) => {
         drinks.forEach(x => addDrinkToMenu(x));
-        priceElement.innerText = drinks[0].price;
+        totalDueElement.innerText = drinks[0].price;
         imageElement.src="https://noroff-komputer-store-api.herokuapp.com/assets/images/1.png"
     }
 
@@ -32,32 +29,47 @@ let totalDue = 0.0;
 
     const handleDrinkMenuChange = e => {
         const selectDrink = drinks[e.target.selectedIndex];
-        priceElement.innerText = selectDrink.price;
+        totalDueElement.innerText = selectDrink.price;
         imageElement.src ="https://noroff-komputer-store-api.herokuapp.com/" + selectDrink.image
         
     }
 
     const handleAddDrink = () => {
-        const selectedDrink = drinks[drinksElement.selectedIndex];
         
         const cartItem = document.createElement("li");
-        const lineTotal = selectedDrink.price;
-        
         cartItem.innerText = `Title ${selectedDrink.title} price:- ${selectedDrink.price}}` 
         cartElement.appendChild(cartItem);
-
-        totalDue += lineTotal;
         totalDueElement.innerHTML = `Total Due: ${totalDue.toFixed(2)}`
+        console.log(lineTotal)
     }
 
     const handlePay = () => {
         const totalPaid = prompt(" please enter the amount of money you wish to pay: ");
+        const selectedDrink = drinks[drinksElement.selectedIndex];
+
+        const lineTotal = selectedDrink.price;
+        totalDue += lineTotal;
         const change =parseFloat(totalPaid) - totalDue;
-        alert(`Total change due: ${change.toFixed(2)}`)
+        console.log(totalDue, lineTotal+' over the if(){}')
+
+        if(totalPaid==totalDue){
+            alert(` item bought: ${change.toFixed(2)}`)
+            console.log(totalPaid, totalDue, change)
+        }
+
+        if(totalPaid >= change){
+            alert(`ops you paid to much: ${change.toFixed(2)}`)
+            console.log(totalPaid, totalDue, change)
+        }
+
+        if(totalPaid<change){
+            alert(`ops u have to pay a little more to get the item: ${change.toFixed(2)-totalDue}`)
+            console.log(totalPaid,totalDue, change)
+        }
+        
     }
 
 
 
     drinksElement.addEventListener("change", handleDrinkMenuChange);
-    addElement.addEventListener("click", handleAddDrink);
     payButtonElement.addEventListener("click",handlePay);
