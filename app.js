@@ -10,13 +10,15 @@ let drinks = [];
 let cart = [];
 let totalDue = 0.0;
 
-fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
-    .then(response => response.json())
-    .then(data => drinks = data)
-    .then(drinks => addDrinksToMenu(drinks));
+    fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
+        .then(response => response.json())
+        .then(data => drinks = data)
+        .then(drinks => addDrinksToMenu(drinks)
+    );
 
     const addDrinksToMenu = (drinks) => {
         drinks.forEach(x => addDrinkToMenu(x));
+        priceElement.innerText = drinks[0].price;
     }
 
     const addDrinkToMenu = (drink) => {
@@ -25,3 +27,10 @@ fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
         drinkElement.appendChild(document.createTextNode(drink.description));
         drinksElement.appendChild(drinkElement);
     }
+
+    const handleDrinkMenuChange = e => {
+        const selectDrink = drinks[e.target.selectedIndex];
+        priceElement.innerText = selectDrink.price;
+    }
+
+    drinksElement.addEventListener("change", handleDrinkMenuChange);
