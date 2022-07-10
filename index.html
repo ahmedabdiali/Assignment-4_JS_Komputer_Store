@@ -5,24 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drinks app</title>
-    <p>PLease add drinks to your cart below</p>
-
-    <select name="drinks" id="drinks">
-
-    </select>
-    <span>Price :- </span>
-    <span id="price"></span>
-    <input type="number" name="quantity" min="0" value="1">
-    <button id="add">Add to cart</button>
-    <h4>Cart:</h4>
-    <ul id="cart">
-
-    </ul>
-    <p id="totalDue"> Total Due: 0.0</p>
-    <button id="pay"> Pay now</button>
-    <script src="app.js"></script>
 </head>
 <body>
+    <div id="container">
+        <p>PLease add drinks to your cart below</p>
+
+        <select name="drinks" id="drinks">
     
+        </select>
+        <span>Price :- </span>
+        <span id="price"></span>
+        <input type="number" name="quantity" min="0" value="1">
+        <button id="add">Add to cart</button>
+        <h4>Cart:</h4>
+        <ul id="cart">
+            <img id="img"  width="100" height="100" src="">
+        </ul>
+        <p id="totalDue"> 0.0 SEK</p>
+        <button id="pay"> Buy now</button>
+    </div>
+    <script src="app.js"></script>
 </body>
 </html>
