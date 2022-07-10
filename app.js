@@ -1,43 +1,43 @@
-const drinksElement = document.getElementById("drinks");
+const computersElement = document.getElementById("computers");
 const cartElement = document.getElementById("cart");
 const payButtonElement = document.getElementById("pay");
 const totalDueElement = document.getElementById("totalDue");
 const imageElement = document.getElementById("img");
-let drinks = [];
+let computers = [];
 let cart = [];
 let totalDue = 0.0;
 
     fetch("https://noroff-komputer-store-api.herokuapp.com/computers")
         .then(response => response.json())
-        .then(data => drinks = data)
-        .then(drinks => addDrinksToMenu(drinks)
+        .then(data => computers = data)
+        .then(computers => addComputersToMenu(computers)
         
     );
 
-    const addDrinksToMenu = (drinks) => {
-        drinks.forEach(x => addDrinkToMenu(x));
-        totalDueElement.innerText = drinks[0].price;
+    const addComputersToMenu = (computers) => {
+        computers.forEach(x => addComputerToMenu(x));
+        totalDueElement.innerText = computers[0].price;
         imageElement.src="https://noroff-komputer-store-api.herokuapp.com/assets/images/1.png"
     }
 
-    const addDrinkToMenu = (drink) => {
-        const drinkElement = document.createElement("option");
-        drinkElement.value = drink.id;
-        drinkElement.appendChild(document.createTextNode(drink.title));
-        drinksElement.appendChild(drinkElement);
+    const addComputerToMenu = (computer) => {
+        const computerElement = document.createElement("option");
+        computerElement.value = computer.id;
+        computerElement.appendChild(document.createTextNode(computer.title));
+        computersElement.appendChild(computerElement);
     }
 
-    const handleDrinkMenuChange = e => {
-        const selectDrink = drinks[e.target.selectedIndex];
-        totalDueElement.innerText = selectDrink.price;
-        imageElement.src ="https://noroff-komputer-store-api.herokuapp.com/" + selectDrink.image
+    const handleComputerMenuChange = e => {
+        const selectComputer = computers[e.target.selectedIndex];
+        totalDueElement.innerText = selectComputer.price;
+        imageElement.src ="https://noroff-komputer-store-api.herokuapp.com/" + selectComputer.image
         
     }
 
-    const handleAddDrink = () => {
+    const handleAddComputer = () => {
         
         const cartItem = document.createElement("li");
-        cartItem.innerText = `Title ${selectedDrink.title} price:- ${selectedDrink.price}}` 
+        cartItem.innerText = `Title ${selectedComputer.title} price:- ${selectedComputer.price}}` 
         cartElement.appendChild(cartItem);
         totalDueElement.innerHTML = `Total Due: ${totalDue.toFixed(2)}`
         console.log(lineTotal)
@@ -45,9 +45,10 @@ let totalDue = 0.0;
 
     const handlePay = () => {
         const totalPaid = prompt(" please enter the amount of money you wish to pay: ");
-        const selectedDrink = drinks[drinksElement.selectedIndex];
+        const selectedComputer = computers[computersElement.selectedIndex];
 
-        const lineTotal = selectedDrink.price;
+        //========inte klar
+        const lineTotal = selectedComputer.price;
         totalDue += lineTotal;
         const change =parseFloat(totalPaid) - totalDue;
         console.log(totalDue, lineTotal+' over the if(){}')
@@ -62,8 +63,8 @@ let totalDue = 0.0;
             console.log(totalPaid, totalDue, change)
         }
 
-        if(totalPaid<change){
-            alert(`ops u have to pay a little more to get the item: ${change.toFixed(2)-totalDue}`)
+        if(totalPaid<=change){
+            alert(`ops u have to pay a little more to get the item: ${change.toFixed(2)}`)
             console.log(totalPaid,totalDue, change)
         }
         
@@ -71,5 +72,5 @@ let totalDue = 0.0;
 
 
 
-    drinksElement.addEventListener("change", handleDrinkMenuChange);
+    computersElement.addEventListener("change", handleComputerMenuChange);
     payButtonElement.addEventListener("click",handlePay);
