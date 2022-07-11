@@ -3,6 +3,9 @@ const cartElement = document.getElementById("cart");
 const payButtonElement = document.getElementById("pay");
 const totalDueElement = document.getElementById("totalDue");
 const imageElement = document.getElementById("img");
+const specsElement = document.getElementById("specs"); 
+const descElement = document.getElementById("desc"); 
+const titleElement = document.getElementById("title"); 
 let computers = [];
 let cart = [];
 let totalDue = 0.0;
@@ -18,6 +21,10 @@ let totalDue = 0.0;
         computers.forEach(x => addComputerToMenu(x));
         totalDueElement.innerText = computers[0].price;
         imageElement.src="https://noroff-komputer-store-api.herokuapp.com/assets/images/1.png"
+        descElement.innerText = computers[0].description;
+        specsElement.innerText = computers[0].specs;
+        titleElement.innerText = computers[0].title;
+
     }
 
     const addComputerToMenu = (computer) => {
@@ -25,52 +32,59 @@ let totalDue = 0.0;
         computerElement.value = computer.id;
         computerElement.appendChild(document.createTextNode(computer.title));
         computersElement.appendChild(computerElement);
+        
     }
 
-    const handleComputerMenuChange = e => {
+    const handleSpecificComputer = e => {
         const selectComputer = computers[e.target.selectedIndex];
         totalDueElement.innerText = selectComputer.price;
         imageElement.src ="https://noroff-komputer-store-api.herokuapp.com/" + selectComputer.image
         
     }
-
-    const handleAddComputer = () => {
-        
-        const cartItem = document.createElement("li");
-        cartItem.innerText = `Title ${selectedComputer.title} price:- ${selectedComputer.price}}` 
-        cartElement.appendChild(cartItem);
-        totalDueElement.innerHTML = `Total Due: ${totalDue.toFixed(2)}`
-        console.log(lineTotal)
+    const handleDesc=e=>{
+        const selectComputer= computers[e.target.selectedIndex];
+        descElement.innerText=selectComputer.description;
+    }
+    const handleSpecs=e=>{
+        const selectComputer= computers[e.target.selectedIndex];
+        specsElement.innerText=selectComputer.specs;
+    }
+    const handleTitle=e=>{
+        const selectComputer= computers[e.target.selectedIndex];
+        titleElement.innerText=selectComputer.title;
     }
 
     const handlePay = () => {
-        const totalPaid = prompt(" please enter the amount of money you wish to pay: ");
+        let totalPaid = prompt(" please enter the amount of money you wish to pay: ");
         const selectedComputer = computers[computersElement.selectedIndex];
 
-        //========inte klar
+        
         const lineTotal = selectedComputer.price;
         totalDue += lineTotal;
-        const change =parseFloat(totalPaid) - totalDue;
+         totalPaid =parseFloat(totalPaid);
         console.log(totalDue, lineTotal+' over the if(){}')
 
         if(totalPaid==totalDue){
-            alert(` item bought: ${change.toFixed(2)}`)
-            console.log(totalPaid, totalDue, change)
+            alert(` item bought: ${totalPaid-totalDue}`)
+            console.log('same amount was trigge',totalPaid, totalDue)
         }
 
-        if(totalPaid >= change){
-            alert(`ops you paid to much: ${change.toFixed(2)}`)
-            console.log(totalPaid, totalDue, change)
+        else if(totalPaid<totalDue){
+            alert(`you have to add: ${totalPaid-totalDue} to buy the item`)
+            console.log('less was triggerd'.totalPaid,totalDue)
         }
 
-        if(totalPaid<=change){
-            alert(`ops u have to pay a little more to get the item: ${change.toFixed(2)}`)
-            console.log(totalPaid,totalDue, change)
+        else if(totalPaid > totalDue){
+            alert(`ops you paid much more then the original price: ${totalDue-totalPaid}`)
+            console.log('greater than was triggerd',totalPaid, totalDue)
         }
         
     }
 
 
 
-    computersElement.addEventListener("change", handleComputerMenuChange);
+    computersElement.addEventListener("change", handleSpecificComputer);
+    computersElement.addEventListener("change", handleDesc)
+    computersElement.addEventListener("change", handleSpecs)
+    computersElement.addEventListener("change", handleTitle)
     payButtonElement.addEventListener("click",handlePay);
