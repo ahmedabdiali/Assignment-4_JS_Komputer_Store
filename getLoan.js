@@ -6,10 +6,9 @@
 	const paybackButtonElement = document.getElementById("payback-button");
 	const paybackElement = document.getElementById("payback");
 	
-	
+
 	let getLoan = 0;
 	
-
 	
 	/**
 	* 
@@ -44,9 +43,7 @@
 	        loanElement.innerText = getLoan + "kr";    
 	        const bankElement = document.getElementById("bank");
 	        bankElement.innerText = earningValue + "kr";
-	    
 	}
-	
 	
 	/**
 	* 
@@ -78,7 +75,6 @@
 	    bankElement.innerText = earningValue + "sek";
 	}
 	
-
 	/**
 	* added eventListener that triggers the function that ive created
 	*/
