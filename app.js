@@ -55,28 +55,14 @@ let totalDue = 0.0;
     }
 
     const handlePay = () => {
-        let totalPaid = prompt(" please enter the amount of money you wish to pay: ");
-        const selectedComputer = computers[computersElement.selectedIndex];
-
-        
-        const lineTotal = selectedComputer.price;
-        totalDue += lineTotal;
-         totalPaid =parseFloat(totalPaid);
-        console.log(totalDue, lineTotal+' over the if(){}')
-
-        if(totalPaid==totalDue){
-            alert(` item bought: ${totalPaid-totalDue}`)
-            console.log('same amount was trigge',totalPaid, totalDue)
-        }
-
-        else if(totalPaid<totalDue){
-            alert(`you have to add: ${totalPaid-totalDue} to buy the item`)
-            console.log('less was triggerd'.totalPaid,totalDue)
-        }
-
-        else if(totalPaid > totalDue){
-            alert(`ops you paid much more then the original price: ${totalDue-totalPaid}`)
-            console.log('greater than was triggerd',totalPaid, totalDue)
+        paidAmount = parseFloat(computers[computersElement.selectedIndex].price)-earningValue;
+        if(paidAmount<=0){
+            selectedItem=computers[computersElement.selectedIndex].title;
+            earningValue-=parseFloat(computers[computersElement.selectedIndex].price)
+            bankValueElement.innerText=earningValue+' sek';
+            alert('you bought '+selectedItem+' welcome back!')
+        }else{
+            alert('you cant afford it')
         }
         
     }

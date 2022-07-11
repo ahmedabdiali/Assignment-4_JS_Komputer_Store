@@ -1,3 +1,6 @@
+/**
+ * here is some elements for me to use and play around with
+ */
 const workButtonElement = document.getElementById("workButton")
 const workValueElement = document.getElementById("work")
 const bankButtonElement = document.getElementById("bankButton")
@@ -6,22 +9,19 @@ const bankValueElement = document.getElementById("bank")
 let earningValue = 0;
 let workValue = 0;
 
-const handleWorkChange = e =>{
-    const electedComputer = computers[e.taret.selectedIndex]
-    workValueElement.innerText= electedComputer.work;
-}
-const handleBankChange = e =>{
-    const electedComputer = computers[e.taret.selectedIndex]
-    bankValueElement.innerText= electedComputer.bank;
-}
 
-////////////////////////////////////////////////////
+/**
+ * here is the logic for the bank and work
+ * for the work it adds 100sek that i earn, everytime i click the button
+ * 
+ * bankValue takes the value of my total earning
+ * @param {} e 
+ */
 
 const handleWorkLogic = e =>{
-    const money = 100;
-    workValue += parseFloat(money);
+    const earningValue = 100;
+    workValue += parseFloat(earningValue);
     workValueElement.innerText = (workValue)+'sek'
-    // workValueElement.innerText="hello"
 }
 
 
@@ -31,9 +31,10 @@ const handleBankLogic = e =>{
    
    bankValueElement.innerText=(bankValue) +'sek'
    workValueElement.innerText=(workValue) +'sek'
-// bankValueElement.innerText="hello"
 }
 
-
+/**
+ * when button clicked, it triggers the functions
+ */
 workButtonElement.addEventListener('click',handleWorkLogic)
 bankButtonElement.addEventListener('click',handleBankLogic)
