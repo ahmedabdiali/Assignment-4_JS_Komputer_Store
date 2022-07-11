@@ -15,7 +15,7 @@ const handleBankChange = e =>{
     bankValueElement.innerText= electedComputer.bank;
 }
 
-////////////////////////////////////////////////////7
+////////////////////////////////////////////////////
 
 const handleWorkLogic = e =>{
     const money = 100;
